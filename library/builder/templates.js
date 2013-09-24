@@ -19,12 +19,12 @@ module.exports = function(builder) {
 
 };
 
-function pathToScript(path) {
-    var file = fs.readFileSync(path);
+function pathToScript(name) {
+    var file = fs.readFileSync(name);
 
-    return stringtojs(file);
+    return stringtojs(file.toString());
 }
 
-function pathToJsType(path) {
-    return path.basename(path, '.html') + '.js';
+function pathToJsType(name) {
+    return path.basename(name, '.html') + '.js';
 }

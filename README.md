@@ -5,7 +5,7 @@
 ## Dependencies
 
 * **node** - `0.10.x`
-* **googlemaps** - `3.x.x`
+* **googlemaps** - `3.10.x`
 
 ## Installation
 

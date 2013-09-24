@@ -4,8 +4,19 @@
 
     "main": "index.js",
 
+    "styles": [
+        "styles/index.css"
+    ],
+
     "scripts": [
         "index.js"
-    ]
+    ],
+
+    "dependencies": {
+        "component/domify": "1.0.0",
+        "component/emitter": "1.0.1",
+        "component/reactive": "0.13.1",
+        "visionmedia/superagent": "0.15.4"
+    }
 
 }

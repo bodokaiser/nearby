@@ -4,9 +4,9 @@ var app = express();
 
 require('./config')(app);
 
-require('./static')(app);
-
 require('./builder')(app);
+
+require('./static')(app);
 
 module.exports = app;
 
