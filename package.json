@@ -14,9 +14,7 @@
     },
     
     "dependencies": {
-        "express": "3.4.0",
-        "mongoose": "3.6.19",
-        "passport": "0.1.17"
+        "express": "3.4.0"
     },
     
     "repository": {
