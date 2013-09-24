@@ -4,6 +4,17 @@
 
     "static": {
         "path": "/public"
+    },
+
+    "builder": {
+        "stylesheet": {
+            "name": "build.css",
+            "path": "/public/stylesheets"
+        },
+        "javascript": {
+            "name": "build.js",
+            "path": "/public/javascripts"
+        }
     }
 
 }
