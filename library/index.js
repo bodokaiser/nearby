@@ -4,6 +4,8 @@ var app = express();
 
 require('./config')(app);
 
+require('./socket')(app);
+
 require('./builder')(app);
 
 require('./static')(app);

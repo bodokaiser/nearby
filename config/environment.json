@@ -6,6 +6,10 @@
         "path": "/public"
     },
 
+    "socket": {
+        "static": false
+    },
+
     "builder": {
         "stylesheet": {
             "name": "build.css",
