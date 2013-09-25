@@ -7,6 +7,12 @@ module.exports = function(app) {
 
     var sockets = socketio.listen(server, app.settings.socket);
 
-    require('./connect')(sockets);
+    sockets.on('connect', function(socket) {
+
+        require('./connect')(socket, sockets);
+        require('./message')(socket, sockets);
+        require('./disconnect')(socket, sockets);
+
+    });
 
 };
