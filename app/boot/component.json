@@ -4,6 +4,14 @@
 
     "main": "index.js",
 
+    "paths": [
+        "../"
+    ],
+
+    "local": [
+    
+    ],
+
     "styles": [
         "styles/index.css"
     ],
