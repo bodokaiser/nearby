@@ -7,6 +7,7 @@ module.exports = function(app) {
 
     return function(req, res, next) {
         if (app.settings.env == 'production') return next();
+        if (req.path.indexOf('build') == -1) return next();
 
         builder(app).build(function(err, res) {
             if (err) return next(err);

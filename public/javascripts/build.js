@@ -2930,41 +2930,165 @@ module.exports = request;
 
 });
 require.register("boot/index.js", function(exports, require, module){
-var wsocket = new WebSocket('ws://localhost:3000');
+var GeoMap      = require('./geo/map');
+var GeoPoint    = require('./geo/point');
+var GeoSocket   = require('./geo/socket');
+var GeoLocation = require('./geo/location');
+    
+var element = document.querySelector('#map');
 
-var map, marker;
+var geomap = new GeoMap();
 
-navigator.geolocation.getCurrentPosition(function(position) {
-    var latlng = positionToArray(position);
+var geopoint = new GeoPoint();
 
-    var current = new google.maps.LatLng(latlng[0], latlng[1]);
+var geosocket = new GeoSocket();
 
-    var map = new google.maps.Map(document.querySelector('.map'), {
-        center: current, zoom: 14
+var geolocation = new GeoLocation();
+
+geolocation.current(function(geometry) {
+    geopoint.coordinates = geometry.coordinates;
+
+    geomap.element = element;
+    geomap.center = geopoint;
+
+    geomap.toGoogleMaps();
+});
+
+});
+require.register("boot/geo/map.js", function(exports, require, module){
+var emitter = require('emitter');
+
+function GeoMap(element, point) {
+    emitter(this);
+
+    this.center = point;
+    this.element = element;
+}
+
+GeoMap.prototype.toGoogleMaps = function() {
+    var options = {};
+
+    options.zoom = 16;
+    options.center = this.center.toGoogleMaps();
+
+    return new google.maps.Map(this.element, options);
+};
+
+module.exports = GeoMap;
+
+});
+require.register("boot/geo/point.js", function(exports, require, module){
+var emitter = require('emitter');
+
+function GeoPoint(geometry) {
+    emitter(this);
+
+    this.type = 'Point';
+    this.coordinates = [];
+    this.coordinates.concat(geometry && geometry.coordinates);
+}
+
+GeoPoint.prototype.toGoogleMaps = function() {
+    var lat = this.coordinates[0];
+    var lng = this.coordinates[1];
+
+    return new google.maps.LatLng(lat, lng);
+};
+
+module.exports = GeoPoint;
+
+});
+require.register("boot/geo/socket.js", function(exports, require, module){
+var emitter = require('emitter');
+
+function GeoSocket() {
+    emitter(this);
+
+    this.id = null;
+
+    this.ws = new WebSocket('ws://localhost:3000');
+    
+    bindToWebSocketOpenEvent(this.ws, this);
+    bindToWebSocketMessageEvent(this.ws, this);
+}
+
+GeoSocket.prototype.send = function(geometry) {
+    var message = JSON.stringify({
+        id: this.id, geometry: geometry
     });
 
-    var marker = new google.maps.Marker({
-        position: current, map: map
+    this.ws.send(message);
+
+    return this;
+};
+
+module.exports = GeoSocket;
+
+function bindToWebSocketOpenEvent(websocket, geosocket) {
+    websocket.addEventListener('open', function(e) {
+        geosocket.emit('open');
     });
+}
+
+function bindToWebSocketMessageEvent(websocket, geosocket) {
+    websocket.addEventListener('message', function(e) {
+        var message = JSON.parse(e.data);
+        
+        geosocket.id = message.id;
+        
+        geosocket.emit('message', message.body);
+    });
+}
+
 });
+require.register("boot/geo/location.js", function(exports, require, module){
+var emitter = require('emitter');
 
-wsocket.addEventListener('open', function(message) {
+function GeoLocation() {
+    emitter(this);
 
-});
+    this.watcher = null;
+}
 
-wsocket.addEventListener('message', function(message) {
+GeoLocation.prototype.current = function(callback) {
+    var self = this;
+    
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var geometry = positionToGeometry(position);
 
-});
+        callback(geometry);
+    });
 
-window.wsocket = wsocket;
+    return this;
+};
 
-function positionToArray(position) {
-    var array = [];
+GeoLocation.prototype.start = function() {
+    var self = this;
 
-    array.push(position.coords.latitude);
-    array.push(position.coords.longitude);
+    this.watcher = navigator.geolocation.watchPosition(function(position) {
+        var geometry = positionToGeometry(position);
 
-    return array;
+        self.emit('location', geometry);
+    });
+
+    return this;
+};
+
+GeoLocation.prototype.stop = function() {
+    navigator.geolocation.clearWatch(this.watcher);
+
+    return this;
+};
+
+module.exports = GeoLocation;
+
+function positionToGeometry(position) {
+    var geometry = { type: 'Point', coordinates: [] };
+    
+    geometry.coordinates.push(position.coords.latitude);
+    geometry.coordinates.push(position.coords.longitude);
+
+    return geometry;
 }
 
 });
@@ -2978,6 +3102,10 @@ function positionToArray(position) {
 
 
 require.alias("boot/index.js", "nearby/deps/boot/index.js");
+require.alias("boot/geo/map.js", "nearby/deps/boot/geo/map.js");
+require.alias("boot/geo/point.js", "nearby/deps/boot/geo/point.js");
+require.alias("boot/geo/socket.js", "nearby/deps/boot/geo/socket.js");
+require.alias("boot/geo/location.js", "nearby/deps/boot/geo/location.js");
 require.alias("boot/index.js", "nearby/deps/boot/index.js");
 require.alias("boot/index.js", "boot/index.js");
 require.alias("component-domify/index.js", "boot/deps/domify/index.js");

@@ -1,36 +1,23 @@
-var wsocket = new WebSocket('ws://localhost:3000');
+var GeoMap      = require('./geo/map');
+var GeoPoint    = require('./geo/point');
+var GeoSocket   = require('./geo/socket');
+var GeoLocation = require('./geo/location');
+    
+var element = document.querySelector('#map');
 
-var map, marker;
+var geomap = new GeoMap();
 
-navigator.geolocation.getCurrentPosition(function(position) {
-    var latlng = positionToArray(position);
+var geopoint = new GeoPoint();
 
-    var current = new google.maps.LatLng(latlng[0], latlng[1]);
+var geosocket = new GeoSocket();
 
-    var map = new google.maps.Map(document.querySelector('.map'), {
-        center: current, zoom: 14
-    });
+var geolocation = new GeoLocation();
 
-    var marker = new google.maps.Marker({
-        position: current, map: map
-    });
+geolocation.current(function(geometry) {
+    geopoint.coordinates = geometry.coordinates;
+
+    geomap.element = element;
+    geomap.center = geopoint;
+
+    geomap.toGoogleMaps();
 });
-
-wsocket.addEventListener('open', function(message) {
-
-});
-
-wsocket.addEventListener('message', function(message) {
-
-});
-
-window.wsocket = wsocket;
-
-function positionToArray(position) {
-    var array = [];
-
-    array.push(position.coords.latitude);
-    array.push(position.coords.longitude);
-
-    return array;
-}

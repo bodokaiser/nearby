@@ -17,7 +17,11 @@
     ],
 
     "scripts": [
-        "index.js"
+        "index.js",
+        "geo/map.js",
+        "geo/point.js",
+        "geo/socket.js",
+        "geo/location.js"
     ],
 
     "dependencies": {
