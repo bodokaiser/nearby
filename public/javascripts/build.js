@@ -2930,7 +2930,7 @@ module.exports = request;
 
 });
 require.register("boot/index.js", function(exports, require, module){
-var wssocket = new WebSocket('ws://localhost:3000');
+var wsocket = new WebSocket('ws://localhost:3000');
 
 var map, marker;
 
@@ -2946,17 +2946,17 @@ navigator.geolocation.getCurrentPosition(function(position) {
     var marker = new google.maps.Marker({
         position: current, map: map
     });
-
-    wssocket.send(JSON.stringify(latlng));
 });
 
-wssocket.addEventListener('open', function(message) {
+wsocket.addEventListener('open', function(message) {
 
 });
 
-wssocket.addEventListener('message', function(message) {
+wsocket.addEventListener('message', function(message) {
 
 });
+
+window.wsocket = wsocket;
 
 function positionToArray(position) {
     var array = [];

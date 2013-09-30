@@ -1,4 +1,3 @@
-var http       = require('http');
 var websocketx = require('websocket-x');
 
 module.exports = function(app) {
@@ -9,6 +8,6 @@ module.exports = function(app) {
     require('./close')(wsserver);
     require('./message')(wsserver);
 
-    wsserver.listen(http.createServer(app));
+    wsserver.listen(app.server);
 
 };
