@@ -11,6 +11,8 @@ require('./builder')(app);
 
 require('./static')(app);
 
+require('./models')(app);
+
 require('./geolocation')(app);
 
 app.server.listen(app.settings.port);

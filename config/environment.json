@@ -15,6 +15,12 @@
             "name": "build.js",
             "path": "/public/javascripts"
         }
+    },
+
+    "mongoose": {
+        "db": { 
+            "safe": true
+        }
     }
 
 }
