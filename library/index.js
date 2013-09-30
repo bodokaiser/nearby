@@ -11,7 +11,7 @@ require('./builder')(app);
 
 require('./static')(app);
 
-require('./tracker')(app);
+require('./geolocation')(app);
 
 app.server.listen(app.settings.port);
 

@@ -2950,8 +2950,9 @@ geolocation.current(function(geometry) {
 
     geomap.element = element;
     geomap.center = geopoint;
-
     geomap.toGoogleMaps();
+
+    geosocket.send(geometry);    
 });
 
 });
