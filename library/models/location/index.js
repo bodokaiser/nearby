@@ -11,6 +11,10 @@ module.exports = function(app) {
     
     });
 
+    require('./indexes')(app, schema);
+    require('./methods')(app, schema);
+    require('./defaults')(app, schema);
+    
     mongoose.model('Location', schema);
 
 };
