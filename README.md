@@ -5,6 +5,7 @@
 ## Dependencies
 
 * **node** - `0.10.x`
+* **mongodb** - `2.4.x`
 * **googlemaps** - `3.10.x`
 
 ## Installation
