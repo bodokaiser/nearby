@@ -22,6 +22,7 @@ module.exports = function(app) {
 
     require('./statics')(app, schema);
     require('./methods')(app, schema);
+    require('./validation')(app, schema);
     
     mongoose.model('Location', schema);
 

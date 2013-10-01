@@ -1,30 +1,31 @@
-var GeoMap      = require('./geo/map');
-var GeoPoint    = require('./geo/point');
 var GeoSocket   = require('./geo/socket');
 var GeoLocation = require('./geo/location');
-    
-var element = document.querySelector('#map');
 
-var geomap = new GeoMap();
+var $element = document.querySelector('#map');
 
-var geopoint = new GeoPoint();
+new GeoLocation()
+    .current(function(geometry) {
+        var coords = geometry.coordinates;
 
-var geosocket = new GeoSocket();
+        var map = new google.maps.Map($element, {
+            center: new google.maps.LatLng(coords[0], coords[1]), zoom: 16
+        });
+        
+        var geosocket = new GeoSocket();
+     
+        geosocket.on('open', function() {
+            geosocket.send(geometry);    
+        });
 
-var geolocation = new GeoLocation();
+        geosocket.on('message', function(geometries) {
+            geometries.forEach(function(geometry) {
+                var coords = geometry.coordinates;
 
-geosocket.on('message', function(location) {
-    console.log(location);
-});
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(coords[0], coords[1]),
+                    map: map
+                });
+            });
+        });
 
-geolocation.current(function(geometry) {
-    geopoint.coordinates = geometry.coordinates;
-
-    geomap.element = element;
-    geomap.center = geopoint;
-    geomap.toGoogleMaps();
-
-    geosocket.send(geometry);    
-});
-
-window.geosocket = geosocket;
+    });

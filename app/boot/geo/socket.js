@@ -12,11 +12,7 @@ function GeoSocket() {
 }
 
 GeoSocket.prototype.send = function(geometry) {
-    var message = JSON.stringify({
-        id: this.id, geometry: geometry
-    });
-
-    this.ws.send(message);
+    this.ws.send(JSON.stringify(geometry));
 
     return this;
 };
@@ -31,10 +27,6 @@ function bindToWebSocketOpenEvent(websocket, geosocket) {
 
 function bindToWebSocketMessageEvent(websocket, geosocket) {
     websocket.addEventListener('message', function(e) {
-        var message = JSON.parse(e.data);
-        
-        geosocket.id = message.id;
-        
-        geosocket.emit('message', message.body);
+        geosocket.emit('message', JSON.parse(e.data));
     });
 }

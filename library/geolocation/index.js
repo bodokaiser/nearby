@@ -7,31 +7,38 @@ module.exports = function(app) {
 
     websocket.createServer(function(wssocket) {
         
-        Location.create(function(err, location) {
-            if (err) throw err;
+        var location = new Location();
 
-            Location.find(function(err, locations) {
-                if (err) throw err;
-                
-                var message = {};
-                
-                message._id = location._id;
-                message.body = locations.map(function(location) {
-                    return location.geometry;
-                });
+        wssocket.addListener('message', function(incoming, outgoing) {
+            var buffer = [];
 
-                wssocket.send(JSON.stringify(message));
+            incoming.on('readable', function() {
+                buffer.push(incoming.read());
             });
 
-            wssocket.location = location;
-        });
+            incoming.on('end', function() {
+                var message = Buffer.concat(buffer).toString();
 
-        wssocket.addListener('message', function() {
+                location.geometry = JSON.parse(message);
 
+                location.save(function(err, location) {
+                    if (err) return;
+
+                    Location.find(function(err, locations) {
+                        if (err) return;
+
+                        var message = locations.map(function(location) {
+                            return location.geometry;
+                        });
+
+                        wssocket.send(JSON.stringify(message));
+                    });
+                });
+            });
         });
 
         wssocket.addListener('close', function() {
-            wssocket.location.remove();
+            location.remove();
         });
 
     }).listen(app.server);

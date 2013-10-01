@@ -2930,79 +2930,37 @@ module.exports = request;
 
 });
 require.register("boot/index.js", function(exports, require, module){
-var GeoMap      = require('./geo/map');
-var GeoPoint    = require('./geo/point');
 var GeoSocket   = require('./geo/socket');
 var GeoLocation = require('./geo/location');
-    
-var element = document.querySelector('#map');
 
-var geomap = new GeoMap();
+var $element = document.querySelector('#map');
 
-var geopoint = new GeoPoint();
+new GeoLocation()
+    .current(function(geometry) {
+        var coords = geometry.coordinates;
 
-var geosocket = new GeoSocket();
+        var map = new google.maps.Map($element, {
+            center: new google.maps.LatLng(coords[0], coords[1]), zoom: 16
+        });
+        
+        var geosocket = new GeoSocket();
+     
+        geosocket.on('open', function() {
+            geosocket.send(geometry);    
+        });
 
-var geolocation = new GeoLocation();
+        geosocket.on('message', function(geometries) {
+            geometries.forEach(function(geometry) {
+                var coords = geometry.coordinates;
 
-geosocket.on('message', function(location) {
-    console.log(location);
-});
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(coords[0], coords[1]),
+                    map: map
+                });
+            });
+        });
 
-geolocation.current(function(geometry) {
-    geopoint.coordinates = geometry.coordinates;
-
-    geomap.element = element;
-    geomap.center = geopoint;
-    geomap.toGoogleMaps();
-
-    geosocket.send(geometry);    
-});
-
-window.geosocket = geosocket;
-
-});
-require.register("boot/geo/map.js", function(exports, require, module){
-var emitter = require('emitter');
-
-function GeoMap(element, point) {
-    emitter(this);
-
-    this.center = point;
-    this.element = element;
-}
-
-GeoMap.prototype.toGoogleMaps = function() {
-    var options = {};
-
-    options.zoom = 16;
-    options.center = this.center.toGoogleMaps();
-
-    return new google.maps.Map(this.element, options);
-};
-
-module.exports = GeoMap;
-
-});
-require.register("boot/geo/point.js", function(exports, require, module){
-var emitter = require('emitter');
-
-function GeoPoint(geometry) {
-    emitter(this);
-
-    this.type = 'Point';
-    this.coordinates = [];
-    this.coordinates.concat(geometry && geometry.coordinates);
-}
-
-GeoPoint.prototype.toGoogleMaps = function() {
-    var lat = this.coordinates[0];
-    var lng = this.coordinates[1];
-
-    return new google.maps.LatLng(lat, lng);
-};
-
-module.exports = GeoPoint;
+    });
 
 });
 require.register("boot/geo/socket.js", function(exports, require, module){
@@ -3020,11 +2978,7 @@ function GeoSocket() {
 }
 
 GeoSocket.prototype.send = function(geometry) {
-    var message = JSON.stringify({
-        id: this.id, geometry: geometry
-    });
-
-    this.ws.send(message);
+    this.ws.send(JSON.stringify(geometry));
 
     return this;
 };
@@ -3039,11 +2993,7 @@ function bindToWebSocketOpenEvent(websocket, geosocket) {
 
 function bindToWebSocketMessageEvent(websocket, geosocket) {
     websocket.addEventListener('message', function(e) {
-        var message = JSON.parse(e.data);
-        
-        geosocket.id = message.id;
-        
-        geosocket.emit('message', message.body);
+        geosocket.emit('message', JSON.parse(e.data));
     });
 }
 
@@ -3109,8 +3059,6 @@ function positionToGeometry(position) {
 
 
 require.alias("boot/index.js", "nearby/deps/boot/index.js");
-require.alias("boot/geo/map.js", "nearby/deps/boot/geo/map.js");
-require.alias("boot/geo/point.js", "nearby/deps/boot/geo/point.js");
 require.alias("boot/geo/socket.js", "nearby/deps/boot/geo/socket.js");
 require.alias("boot/geo/location.js", "nearby/deps/boot/geo/location.js");
 require.alias("boot/index.js", "nearby/deps/boot/index.js");
