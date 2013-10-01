@@ -24,6 +24,7 @@ GeoLocation.prototype.start = function() {
     this.watcher = navigator.geolocation.watchPosition(function(position) {
         var geometry = positionToGeometry(position);
 
+        console.log('position', position);
         self.emit('location', geometry);
     });
 
