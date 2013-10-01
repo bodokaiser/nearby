@@ -1,6 +1,7 @@
 # Readme
 
-**nearby** is a simple single-page app which shows people near you.
+**nearby** is a simple single-page app which uses HTML5 geolocation to track
+users and render them as markers on a google maps front-end.
 
 ## Dependencies
 
