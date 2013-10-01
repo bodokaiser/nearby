@@ -7,10 +7,8 @@ module.exports = function(app) {
 
     websocket.createServer(function(wssocket) {
         
-        new Location().save(function(err, location) {
+        Location.create(function(err, location) {
             if (err) throw err;
-
-            console.log(location);
 
             Location.find(function(err, locations) {
                 if (err) throw err;
@@ -26,6 +24,14 @@ module.exports = function(app) {
             });
 
             wssocket.location = location;
+        });
+
+        wssocket.addListener('message', function() {
+
+        });
+
+        wssocket.addListener('close', function() {
+            wssocket.location.remove();
         });
 
     }).listen(app.server);

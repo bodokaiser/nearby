@@ -2959,6 +2959,8 @@ geolocation.current(function(geometry) {
     geosocket.send(geometry);    
 });
 
+window.geosocket = geosocket;
+
 });
 require.register("boot/geo/map.js", function(exports, require, module){
 var emitter = require('emitter');

@@ -26,3 +26,5 @@ geolocation.current(function(geometry) {
 
     geosocket.send(geometry);    
 });
+
+window.geosocket = geosocket;
