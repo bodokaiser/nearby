@@ -13,6 +13,10 @@ var geosocket = new GeoSocket();
 
 var geolocation = new GeoLocation();
 
+geosocket.on('message', function(location) {
+    console.log(location);
+});
+
 geolocation.current(function(geometry) {
     geopoint.coordinates = geometry.coordinates;
 
