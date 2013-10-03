@@ -274,7 +274,7 @@ function parse(html) {
 
 });
 require.register("component-domify/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-indexof/index.js", function(exports, require, module){
 module.exports = function(arr, obj){
@@ -286,7 +286,7 @@ module.exports = function(arr, obj){
 };
 });
 require.register("component-indexof/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-emitter/index.js", function(exports, require, module){
 
@@ -454,7 +454,7 @@ Emitter.prototype.hasListeners = function(event){
 
 });
 require.register("component-emitter/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-format-parser/index.js", function(exports, require, module){
 
@@ -501,7 +501,7 @@ function parseArgs(str) {
 
 });
 require.register("component-format-parser/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-props/index.js", function(exports, require, module){
 
@@ -574,7 +574,7 @@ function unique(arr) {
 
 });
 require.register("component-props/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("visionmedia-debug/index.js", function(exports, require, module){
 if ('undefined' == typeof window) {
@@ -725,7 +725,7 @@ try {
 
 });
 require.register("visionmedia-debug/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-event/index.js", function(exports, require, module){
 
@@ -771,7 +771,7 @@ exports.unbind = function(el, type, fn, capture){
 
 });
 require.register("component-event/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-classes/index.js", function(exports, require, module){
 
@@ -941,7 +941,7 @@ ClassList.prototype.contains = function(name){
 
 });
 require.register("component-classes/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-query/index.js", function(exports, require, module){
 
@@ -968,7 +968,7 @@ exports.engine = function(obj){
 
 });
 require.register("component-query/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("component-reactive/lib/index.js", function(exports, require, module){
 /**
@@ -1962,7 +1962,7 @@ exports.get = function(obj, prop) {
 
 });
 require.register("component-reactive/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("RedVentures-reduce/index.js", function(exports, require, module){
 
@@ -1991,7 +1991,7 @@ module.exports = function(arr, fn, initial){
 };
 });
 require.register("RedVentures-reduce/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("visionmedia-superagent/lib/client.js", function(exports, require, module){
 
@@ -2963,7 +2963,7 @@ module.exports = request;
 
 });
 require.register("visionmedia-superagent/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("boot/index.js", function(exports, require, module){
 var GeoSocket   = require('./geo/socket');
@@ -3099,10 +3099,10 @@ function positionToGeometry(position) {
 
 });
 require.register("boot/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 require.register("nearby/boot/config.js", function(exports, require, module){
-module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+module.exports = {"websocket":{"url":"ws://nearby.jitsu.com"}}
 });
 
 
