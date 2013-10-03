@@ -5,8 +5,8 @@ module.exports = function(app) {
 
     var Location = mongoose.model('Location');
 
-    websocket.createServer(function(wssocket) {
-        
+    websocket.createServer(function(wssocket, wsserver) {
+
         var location = new Location();
 
         wssocket.addListener('message', function(incoming, outgoing) {
@@ -31,7 +31,7 @@ module.exports = function(app) {
                             return location.geometry;
                         });
 
-                        wssocket.send(JSON.stringify(message));
+                        wsserver.broadcast(JSON.stringify(message));
                     });
                 });
             });
@@ -39,13 +39,33 @@ module.exports = function(app) {
 
         wssocket.addListener('close', function() {
             location.remove(function(err) {
-            
+                if (err) return;
+
+                Location.find(function(err, locations) {
+                    if (err) return;
+
+                    var message = locations.map(function(location) {
+                        return location.geometry;
+                    });
+
+                    wsserver.broadcast(JSON.stringify(message));
+                });
             });
         });
 
         wssocket.addListener('end', function() {
             location.remove(function(err) {
-            
+                if (err) return;
+
+                Location.find(function(err, locations) {
+                    if (err) return;
+
+                    var message = locations.map(function(location) {
+                        return location.geometry;
+                    });
+
+                    wsserver.broadcast(JSON.stringify(message));
+                });
             });
         });
 

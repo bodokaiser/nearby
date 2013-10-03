@@ -2935,7 +2935,7 @@ var GeoLocation = require('./geo/location');
 
 var $element = document.querySelector('#map');
 
-var markers = [];
+var markers = window.markers = [];
 
 var geolocation = new GeoLocation();
 
@@ -2952,14 +2952,14 @@ geolocation.current(function(geometry) {
         geosocket.send(geometry);    
 
         geolocation.on('location', function(geometry) {
-            console.log('location', geometry);
             geosocket.send(geometry);
         }).start();
     });
 
     geosocket.on('message', function(geometries) {
-        markers.forEach(function(marker) {
-            marker.set('map', null);
+        markers.forEach(function(marker, index) {
+            marker.setMap(null);
+            markers.splice(0, 1);
         });
 
         geometries.forEach(function(geometry) {
@@ -2969,7 +2969,7 @@ geolocation.current(function(geometry) {
                 position: new google.maps.LatLng(coords[0], coords[1]),
                 map: map
             });
-
+            
             markers.push(marker);
         });
     });

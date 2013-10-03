@@ -9,4 +9,8 @@ module.exports = function(app) {
 
     require('./location')(app);
 
+    mongoose.model('Location').remove(function() {
+        // cleares location memory
+    });
+
 };
