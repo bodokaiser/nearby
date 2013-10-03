@@ -1,11 +1,9 @@
 var emitter = require('emitter');
 
-function GeoSocket() {
+function GeoSocket(url) {
     emitter(this);
 
-    this.id = null;
-
-    this.ws = new WebSocket('ws://localhost:3000');
+    this.ws = new WebSocket(url);
     
     bindToWebSocketOpenEvent(this.ws, this);
     bindToWebSocketMessageEvent(this.ws, this);

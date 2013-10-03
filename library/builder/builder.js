@@ -6,9 +6,9 @@ module.exports = function(app) {
 
     app.configure(function() {
         builder.addLookup('./app/boot');
-        builder.addLookup('./app/socket.io');
 
-        builder.use(require('./templates'));
+        require('./templates')(app, builder);
+        require('./environment')(app, builder);
     });
 
     app.configure('development', function() {

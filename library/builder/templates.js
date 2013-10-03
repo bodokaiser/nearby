@@ -2,14 +2,12 @@ var fs         = require('fs');
 var path       = require('path');
 var stringtojs = require('string-to-js');
 
-module.exports = function(builder) {
+module.exports = function(app, builder) {
 
     builder.hook('before scripts', function(package) {
         var templates = package.config.templates;
 
-        if (!templates) return;
-
-        templates.forEach(function(template) {
+        (templates || []).forEach(function(template) {
             var path = package.path(template);
 
             package.addFile('scripts', 

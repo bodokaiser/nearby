@@ -4,6 +4,12 @@
 
     "mongo": {
         "url": "mongodb://localhost/nearby"
+    },
+    
+    "application": {
+        "websocket": {
+            "url": "ws://localhost:3000"
+        }
     }
 
 }

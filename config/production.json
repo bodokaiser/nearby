@@ -1,5 +1,11 @@
 {
 
-    "port": 80
+    "port": 80,
+    
+    "application": {
+        "websocket": {
+            "url": "ws://nearby.jitsu.com"
+        }
+    }
 
 }

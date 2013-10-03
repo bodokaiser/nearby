@@ -3,7 +3,7 @@ var GeoLocation = require('./geo/location');
 
 var $element = document.querySelector('#map');
 
-var markers = window.markers = [];
+var markers = [];
 
 var geolocation = new GeoLocation();
 
@@ -14,7 +14,7 @@ geolocation.current(function(geometry) {
         center: new google.maps.LatLng(coords[0], coords[1]), zoom: 16
     });
     
-    var geosocket = new GeoSocket();
+    var geosocket = new GeoSocket(config.websocket.url);
  
     geosocket.on('open', function() {
         geosocket.send(geometry);    

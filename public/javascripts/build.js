@@ -273,6 +273,9 @@ function parse(html) {
 }
 
 });
+require.register("component-domify/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
 require.register("component-indexof/index.js", function(exports, require, module){
 module.exports = function(arr, obj){
   if (arr.indexOf) return arr.indexOf(obj);
@@ -281,6 +284,9 @@ module.exports = function(arr, obj){
   }
   return -1;
 };
+});
+require.register("component-indexof/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 require.register("component-emitter/index.js", function(exports, require, module){
 
@@ -447,6 +453,9 @@ Emitter.prototype.hasListeners = function(event){
 };
 
 });
+require.register("component-emitter/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
 require.register("component-format-parser/index.js", function(exports, require, module){
 
 /**
@@ -490,6 +499,9 @@ function parseArgs(str) {
 	return args;
 }
 
+});
+require.register("component-format-parser/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 require.register("component-props/index.js", function(exports, require, module){
 
@@ -560,6 +572,9 @@ function unique(arr) {
   return ret;
 }
 
+});
+require.register("component-props/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 require.register("visionmedia-debug/index.js", function(exports, require, module){
 if ('undefined' == typeof window) {
@@ -709,6 +724,9 @@ try {
 } catch(e){}
 
 });
+require.register("visionmedia-debug/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
 require.register("component-event/index.js", function(exports, require, module){
 
 /**
@@ -751,6 +769,9 @@ exports.unbind = function(el, type, fn, capture){
   return fn;
 };
 
+});
+require.register("component-event/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 require.register("component-classes/index.js", function(exports, require, module){
 
@@ -919,6 +940,9 @@ ClassList.prototype.contains = function(name){
 };
 
 });
+require.register("component-classes/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
 require.register("component-query/index.js", function(exports, require, module){
 
 function one(selector, el) {
@@ -942,6 +966,9 @@ exports.engine = function(obj){
   exports.all = obj.all;
 };
 
+});
+require.register("component-query/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 require.register("component-reactive/lib/index.js", function(exports, require, module){
 /**
@@ -1934,6 +1961,9 @@ exports.get = function(obj, prop) {
 };
 
 });
+require.register("component-reactive/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
 require.register("RedVentures-reduce/index.js", function(exports, require, module){
 
 /**
@@ -1959,6 +1989,9 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
+});
+require.register("RedVentures-reduce/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 require.register("visionmedia-superagent/lib/client.js", function(exports, require, module){
 
@@ -2929,13 +2962,16 @@ request.put = function(url, data, fn){
 module.exports = request;
 
 });
+require.register("visionmedia-superagent/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
 require.register("boot/index.js", function(exports, require, module){
 var GeoSocket   = require('./geo/socket');
 var GeoLocation = require('./geo/location');
 
 var $element = document.querySelector('#map');
 
-var markers = window.markers = [];
+var markers = [];
 
 var geolocation = new GeoLocation();
 
@@ -2946,7 +2982,7 @@ geolocation.current(function(geometry) {
         center: new google.maps.LatLng(coords[0], coords[1]), zoom: 16
     });
     
-    var geosocket = new GeoSocket();
+    var geosocket = new GeoSocket(config.websocket.url);
  
     geosocket.on('open', function() {
         geosocket.send(geometry);    
@@ -2980,12 +3016,10 @@ geolocation.current(function(geometry) {
 require.register("boot/geo/socket.js", function(exports, require, module){
 var emitter = require('emitter');
 
-function GeoSocket() {
+function GeoSocket(url) {
     emitter(this);
 
-    this.id = null;
-
-    this.ws = new WebSocket('ws://localhost:3000');
+    this.ws = new WebSocket(url);
     
     bindToWebSocketOpenEvent(this.ws, this);
     bindToWebSocketMessageEvent(this.ws, this);
@@ -3063,6 +3097,12 @@ function positionToGeometry(position) {
     return geometry;
 }
 
+});
+require.register("boot/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
+});
+require.register("nearby/boot/config.js", function(exports, require, module){
+module.exports = {"websocket":{"url":"ws://localhost:3000"}}
 });
 
 
