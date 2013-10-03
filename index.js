@@ -5,15 +5,15 @@ var app = express();
 
 app.server = http.createServer(app);
 
-require('./config')(app);
+require('./library/config')(app);
 
-require('./builder')(app);
+require('./library/builder')(app);
 
-require('./static')(app);
+require('./library/static')(app);
 
-require('./models')(app);
+require('./library/models')(app);
 
-require('./geolocation')(app);
+require('./library/geolocation')(app);
 
 app.server.listen(app.settings.port);
 

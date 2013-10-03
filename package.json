@@ -8,11 +8,11 @@
     
     "subdomain": "nearby",
 
-    "main": "library/index.js",
+    "main": "index.js",
 
     "scripts": {
-        "start": "make start",
-        "test": "make test"
+        "start": "node index",
+        "test": "mocha tests"
     },
 
     "engines": {
