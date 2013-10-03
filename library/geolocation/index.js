@@ -38,7 +38,15 @@ module.exports = function(app) {
         });
 
         wssocket.addListener('close', function() {
-            location.remove();
+            location.remove(function(err) {
+            
+            });
+        });
+
+        wssocket.addListener('end', function() {
+            location.remove(function(err) {
+            
+            });
         });
 
     }).listen(app.server);
