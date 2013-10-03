@@ -1,6 +1,6 @@
 # configuration
-!config/production.json
+!config/*
 
-# dependencies
+# package dependencies
 node_modules
 components
