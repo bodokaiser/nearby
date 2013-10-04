@@ -13,6 +13,8 @@ GeoLocation.prototype.current = function(callback) {
         var geometry = positionToGeometry(position);
 
         callback(geometry);
+    }, function(err) {
+        if (err) self.emit('error', err);
     });
 
     return this;

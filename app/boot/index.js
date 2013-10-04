@@ -7,7 +7,15 @@ var markers = [];
 
 var geolocation = new GeoLocation();
 
+console.log('booting application');
+
+geolocation.on('error', function(error) {
+    console.log(error);
+});
+
 geolocation.current(function(geometry) {
+    console.log('requesting geolocation');
+
     var coords = geometry.coordinates;
 
     var map = new google.maps.Map($element, {

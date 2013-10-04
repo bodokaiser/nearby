@@ -1,4 +1,4 @@
-window.config = {"websocket":{"url":"ws://nearby.jitsu.com"}}
+window.config = {"websocket":{"url":"ws://192.168.178.49:3000"}}
 /**
  * Require the given path.
  *
@@ -2939,7 +2939,15 @@ var markers = [];
 
 var geolocation = new GeoLocation();
 
+console.log('booting application');
+
+geolocation.on('error', function(error) {
+    console.log(error);
+});
+
 geolocation.current(function(geometry) {
+    console.log('requesting geolocation');
+
     var coords = geometry.coordinates;
 
     var map = new google.maps.Map($element, {
@@ -3026,6 +3034,8 @@ GeoLocation.prototype.current = function(callback) {
         var geometry = positionToGeometry(position);
 
         callback(geometry);
+    }, function(err) {
+        if (err) self.emit('error', err);
     });
 
     return this;
