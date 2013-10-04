@@ -1,21 +1,16 @@
 var fs   = require('fs');
 var util = require('util');
 
-exports.write = function(settings, result) {
-    writeStylesheetToFile(settings, result.css);
-    writeJavascriptToFile(settings, result.require + result.js);
-};
-
-function writeStylesheetToFile(settings, stylesheet) {
+exports.writeStylesheet = function(settings, stylesheet, callback) {
     var options = settings.builder.stylesheet;
 
-    fs.writeFileSync(generateBuildPath(options), stylesheet);
+    fs.writeFile(generateBuildPath(options), stylesheet, callback);
 }
 
-function writeJavascriptToFile(settings, javascript) {
+exports.writeJavaScript = function(settings, javascript, callback) {
     var options = settings.builder.javascript;
 
-    fs.writeFileSync(generateBuildPath(options), javascript);
+    fs.writeFile(generateBuildPath(options), javascript, callback);
 }
 
 function generateBuildPath(options) {

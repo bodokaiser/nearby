@@ -8,7 +8,7 @@
     
     "application": {
         "websocket": {
-            "url": "ws://localhost:3000"
+            "url": "ws://192.168.178.49:3000"
         }
     }
 

@@ -8,7 +8,6 @@ module.exports = function(app) {
         builder.addLookup('./app/boot');
 
         require('./templates')(app, builder);
-        require('./environment')(app, builder);
     });
 
     app.configure('development', function() {
