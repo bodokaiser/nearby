@@ -5,13 +5,13 @@ var app = express();
 
 app.server = http.createServer(app);
 
-require('./library/config')(app);
+require('./config')(app);
 
-require('./library/static')(app);
+require('./static')(app);
 
-require('./library/models')(app);
+require('./models')(app);
 
-require('./library/location')(app);
+require('./location')(app);
 
 app.server.listen(app.settings.port);
 
