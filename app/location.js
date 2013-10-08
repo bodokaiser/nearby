@@ -1,6 +1,6 @@
 module.exports = function(app) {
  
-    app.once('websocket:open', function() {   
+    app.addListener('websocket:open', function() {   
         navigator.geolocation.getCurrentPosition(function(position) {
             var geometry = positionToGeometry(position);
 

@@ -2,7 +2,7 @@ module.exports = function(app) {
 
     var map = new google.maps.Map(app.$element, app.settings.overlay);
 
-    app.on('location:current', function(geometry) {
+    app.addListener('location:current', function(geometry) {
         var latLng = geometryToLatLng(geometry);
 
         map.setCenter(latLng);
@@ -10,7 +10,7 @@ module.exports = function(app) {
 
     var markers = [];
 
-    app.on('websocket:update', function(geometries) {
+    app.addListener('websocket:update', function(geometries) {
         markers.forEach(function(marker) {
             marker.setMap(null);
         });
