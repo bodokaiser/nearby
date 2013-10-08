@@ -18,8 +18,11 @@
 
     "scripts": [
         "index.js",
-        "geo/socket.js",
-        "geo/location.js"
+        "config.js",
+        "element.js",
+        "overlay.js",
+        "location.js",
+        "websocket.js"
     ],
 
     "dependencies": {

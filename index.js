@@ -13,7 +13,7 @@ require('./library/static')(app);
 
 require('./library/models')(app);
 
-require('./library/geolocation')(app);
+require('./library/location')(app);
 
 app.server.listen(app.settings.port);
 

@@ -374,137 +374,104 @@ Emitter.prototype.hasListeners = function(event){
 
 });
 require.register("boot/index.js", function(exports, require, module){
-var GeoSocket   = require('./geo/socket');
-var GeoLocation = require('./geo/location');
+var emitter = require('emitter');
 
-var $element = document.querySelector('#map');
+var app = new emitter();
 
-var markers = [];
+require('./config')(app);
 
-var geolocation = new GeoLocation();
+require('./element')(app);
 
-console.log('booting application');
+require('./location')(app);
 
-geolocation.on('error', function(error) {
-    console.log(error);
+require('./overlay')(app);
+
+require('./websocket')(app);
+
+console.log('application booted');
+
 });
+require.register("boot/config.js", function(exports, require, module){
+module.exports = function(app) {
 
-geolocation.current(function(geometry) {
-    console.log('requesting geolocation');
+    app.settings = {
+        
+        overlay: {
+            zoom: 16
+        },
+        
+        websocket: config.websocket
 
-    var coords = geometry.coordinates;
+    };
 
-    var map = new google.maps.Map($element, {
-        center: new google.maps.LatLng(coords[0], coords[1]), zoom: 16
+};
+
+});
+require.register("boot/element.js", function(exports, require, module){
+module.exports = function(app) {
+
+    app.$element = document.getElementById('map');
+
+};
+
+});
+require.register("boot/overlay.js", function(exports, require, module){
+module.exports = function(app) {
+
+    var map = new google.maps.Map(app.$element, app.settings.overlay);
+
+    app.on('location:current', function(geometry) {
+        var latLng = geometryToLatLng(geometry);
+
+        map.setCenter(latLng);
     });
-    
-    var geosocket = new GeoSocket(config.websocket.url);
- 
-    geosocket.on('open', function() {
-        geosocket.send(geometry);    
 
-        geolocation.on('location', function(geometry) {
-            geosocket.send(geometry);
-        }).start();
-    });
+    var markers = [];
 
-    geosocket.on('message', function(geometries) {
-        markers.forEach(function(marker, index) {
+    app.on('websocket:update', function(geometries) {
+        markers.forEach(function(marker) {
             marker.setMap(null);
+
             markers.splice(0, 1);
         });
 
         geometries.forEach(function(geometry) {
-            var coords = geometry.coordinates;
+            var latLng = geometryToLatLng(geometry);
 
             var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(coords[0], coords[1]),
-                map: map
+                position: latLng, map: map
             });
-            
+
             markers.push(marker);
         });
     });
 
-});
-
-});
-require.register("boot/geo/socket.js", function(exports, require, module){
-var emitter = require('emitter');
-
-function GeoSocket(url) {
-    emitter(this);
-
-    this.ws = new WebSocket(url);
-    
-    bindToWebSocketOpenEvent(this.ws, this);
-    bindToWebSocketMessageEvent(this.ws, this);
-}
-
-GeoSocket.prototype.send = function(geometry) {
-    this.ws.send(JSON.stringify(geometry));
-
-    return this;
 };
 
-module.exports = GeoSocket;
+function geometryToLatLng(geometry) {
+    var latitude = geometry.coordinates[0];
+    var longitude = geometry.coordinates[1];
 
-function bindToWebSocketOpenEvent(websocket, geosocket) {
-    websocket.addEventListener('open', function(e) {
-        geosocket.emit('open');
-    });
-}
-
-function bindToWebSocketMessageEvent(websocket, geosocket) {
-    websocket.addEventListener('message', function(e) {
-        geosocket.emit('message', JSON.parse(e.data));
-    });
+    return new google.maps.LatLng(latitude, longitude);
 }
 
 });
-require.register("boot/geo/location.js", function(exports, require, module){
-var emitter = require('emitter');
-
-function GeoLocation() {
-    emitter(this);
-
-    this.watcher = null;
-}
-
-GeoLocation.prototype.current = function(callback) {
-    var self = this;
+require.register("boot/location.js", function(exports, require, module){
+module.exports = function(app) {
     
     navigator.geolocation.getCurrentPosition(function(position) {
         var geometry = positionToGeometry(position);
 
-        callback(geometry);
-    }, function(err) {
-        if (err) self.emit('error', err);
+        app.emit('location:current', geometry);
     });
 
-    return this;
-};
-
-GeoLocation.prototype.start = function() {
-    var self = this;
-
-    this.watcher = navigator.geolocation.watchPosition(function(position) {
+    navigator.geolocation.watchPosition(function(position) {
         var geometry = positionToGeometry(position);
 
-        console.log('position', position);
-        self.emit('location', geometry);
+        app.emit('location:update', geometry);
     });
 
-    return this;
 };
-
-GeoLocation.prototype.stop = function() {
-    navigator.geolocation.clearWatch(this.watcher);
-
-    return this;
-};
-
-module.exports = GeoLocation;
 
 function positionToGeometry(position) {
     var geometry = { type: 'Point', coordinates: [] };
@@ -516,9 +483,38 @@ function positionToGeometry(position) {
 }
 
 });
+require.register("boot/websocket.js", function(exports, require, module){
+module.exports = function(app) {
+
+    var wsocket = new WebSocket(app.settings.websocket.url);
+
+    app.on('location:update', function(geometry) {
+        var message = JSON.stringify(geometry);
+
+        wsocket.send(message);
+    });
+
+    app.on('location:current', function(geometry) {
+        var message = JSON.stringify(geometry);
+
+        wsocket.send(message);
+    });
+
+    wsocket.addEventListener('message', function(e) {
+        var message = JSON.parse(e.data);
+
+        app.emit('websocket:update', message);
+    });
+
+};
+
+});
 require.alias("boot/index.js", "nearby/deps/boot/index.js");
-require.alias("boot/geo/socket.js", "nearby/deps/boot/geo/socket.js");
-require.alias("boot/geo/location.js", "nearby/deps/boot/geo/location.js");
+require.alias("boot/config.js", "nearby/deps/boot/config.js");
+require.alias("boot/element.js", "nearby/deps/boot/element.js");
+require.alias("boot/overlay.js", "nearby/deps/boot/overlay.js");
+require.alias("boot/location.js", "nearby/deps/boot/location.js");
+require.alias("boot/websocket.js", "nearby/deps/boot/websocket.js");
 require.alias("boot/index.js", "nearby/deps/boot/index.js");
 require.alias("boot/index.js", "boot/index.js");
 require.alias("component-emitter/index.js", "boot/deps/emitter/index.js");
