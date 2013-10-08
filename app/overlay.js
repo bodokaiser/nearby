@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-    var map = new google.maps.Map(app.$element, app.settings.overlay);
+    var map = new google.maps.Map(app.$element, app.settings.overlay.map);
 
     app.addListener('location:current', function(geometry) {
         var latLng = geometryToLatLng(geometry);
