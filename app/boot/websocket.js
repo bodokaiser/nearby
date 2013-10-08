@@ -14,6 +14,10 @@ module.exports = function(app) {
         wsocket.send(message);
     });
 
+    wsocket.addEventListener('open', function() {
+        app.emit('websocket:open');
+    });
+
     wsocket.addEventListener('message', function(e) {
         var message = JSON.parse(e.data);
 

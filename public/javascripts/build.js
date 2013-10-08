@@ -431,15 +431,15 @@ module.exports = function(app) {
     app.on('websocket:update', function(geometries) {
         markers.forEach(function(marker) {
             marker.setMap(null);
-
-            markers.splice(0, 1);
         });
+
+        markers = [];
 
         geometries.forEach(function(geometry) {
             var latLng = geometryToLatLng(geometry);
 
             var marker = new google.maps.Marker({
-                position: latLng, map: map
+                position: latLng, map: map, draggable: true
             });
 
             markers.push(marker);
@@ -458,17 +458,19 @@ function geometryToLatLng(geometry) {
 });
 require.register("boot/location.js", function(exports, require, module){
 module.exports = function(app) {
-    
-    navigator.geolocation.getCurrentPosition(function(position) {
-        var geometry = positionToGeometry(position);
+ 
+    app.once('websocket:open', function() {   
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geometry = positionToGeometry(position);
 
-        app.emit('location:current', geometry);
-    });
+            app.emit('location:current', geometry);
+        });
 
-    navigator.geolocation.watchPosition(function(position) {
-        var geometry = positionToGeometry(position);
+        navigator.geolocation.watchPosition(function(position) {
+            var geometry = positionToGeometry(position);
 
-        app.emit('location:update', geometry);
+            app.emit('location:update', geometry);
+        });
     });
 
 };
@@ -498,6 +500,10 @@ module.exports = function(app) {
         var message = JSON.stringify(geometry);
 
         wsocket.send(message);
+    });
+
+    wsocket.addEventListener('open', function() {
+        app.emit('websocket:open');
     });
 
     wsocket.addEventListener('message', function(e) {

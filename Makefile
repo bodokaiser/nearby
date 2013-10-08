@@ -1,0 +1,2 @@
+start:
+	@node index.js

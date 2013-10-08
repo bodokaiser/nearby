@@ -13,15 +13,15 @@ module.exports = function(app) {
     app.on('websocket:update', function(geometries) {
         markers.forEach(function(marker) {
             marker.setMap(null);
-
-            markers.splice(0, 1);
         });
+
+        markers = [];
 
         geometries.forEach(function(geometry) {
             var latLng = geometryToLatLng(geometry);
 
             var marker = new google.maps.Marker({
-                position: latLng, map: map
+                position: latLng, map: map, draggable: true
             });
 
             markers.push(marker);
