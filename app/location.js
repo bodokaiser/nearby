@@ -1,19 +1,15 @@
 module.exports = function(app) {
  
-    app.addListener('websocket:open', function() {   
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var geometry = positionToGeometry(position);
+    navigator.geolocation.getCurrentPosition(function(position) {
+        var geometry = positionToGeometry(position);
 
-            app.emit('location:current', geometry);
-        }, function(error) {
-            throw error;
-        });
+        app.emit('location:current', geometry);
+    });
 
-        navigator.geolocation.watchPosition(function(position) {
-            var geometry = positionToGeometry(position);
+    navigator.geolocation.watchPosition(function(position) {
+        var geometry = positionToGeometry(position);
 
-            app.emit('location:update', geometry);
-        });
+        app.emit('location:update', geometry);
     });
 
 };
