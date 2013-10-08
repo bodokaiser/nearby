@@ -1,14 +1,14 @@
-MOCHA     = node_modules/.bin/mocha
-COMPONENT = node_modules/.bin/component
+MOCHA      = node_modules/.bin/mocha
+BROWSERIFY = node_modules/.bin/browserify
 
-start: install build
+BUILD_IN  = app/index.js
+BUILD_OUT = public/javascripts/build.js
+
+start: build
 	@node library/index
 
 test:
 	$(MOCHA) --reporter spec tests/static
 
 build:
-	$(COMPONENT) build -o public/build -n build
-
-install:
-	$(COMPONENT) install
+	$(BROWSERIFY) --entry $(BUILD_IN) --outfile $(BUILD_OUT)
