@@ -8,14 +8,6 @@
         "../"
     ],
 
-    "local": [
-           
-    ],
-
-    "styles": [
-        "styles/index.css"
-    ],
-
     "scripts": [
         "index.js",
         "config.js",
