@@ -1,6 +1,6 @@
-var emitter = require('emitter');
+var events = require('events');
 
-var app = new emitter();
+var app = new events.EventEmitter();
 
 require('./config')(app);
 
