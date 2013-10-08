@@ -45,7 +45,7 @@ components
 
 # Production configuration #
 ############################
-config/production.json
+#config/production.json
 
 # Ide generated files #
 #######################
