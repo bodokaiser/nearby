@@ -7,8 +7,6 @@ app.server = http.createServer(app);
 
 require('./library/config')(app);
 
-require('./library/builder')(app);
-
 require('./library/static')(app);
 
 require('./library/models')(app);

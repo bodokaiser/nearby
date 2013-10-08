@@ -11,8 +11,8 @@
     "main": "index.js",
 
     "scripts": {
-        "start": "node index",
-        "test": "mocha tests"
+        "test": "make tests",
+        "start": "make start"
     },
 
     "engines": {

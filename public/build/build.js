@@ -1,4 +1,4 @@
-window.config = {"websocket":{"url":"ws://192.168.178.49:3000"}}
+
 /**
  * Require the given path.
  *
@@ -400,11 +400,23 @@ module.exports = function(app) {
             zoom: 16
         },
         
-        websocket: config.websocket
+        websocket: {
+            url: generateWebSocketUrl()
+        }
 
     };
 
 };
+
+function generateWebSocketUrl() {
+    var url = 'ws://';
+
+    url += location.hostname;
+    url += ':';
+    url += location.port;
+
+    return url;
+}
 
 });
 require.register("boot/element.js", function(exports, require, module){

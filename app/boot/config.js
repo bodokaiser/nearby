@@ -6,8 +6,20 @@ module.exports = function(app) {
             zoom: 16
         },
         
-        websocket: config.websocket
+        websocket: {
+            url: generateWebSocketUrl()
+        }
 
     };
 
 };
+
+function generateWebSocketUrl() {
+    var url = 'ws://';
+
+    url += location.hostname;
+    url += ':';
+    url += location.port;
+
+    return url;
+}
