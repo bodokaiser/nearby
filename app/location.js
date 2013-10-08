@@ -5,6 +5,8 @@ module.exports = function(app) {
             var geometry = positionToGeometry(position);
 
             app.emit('location:current', geometry);
+        }, function(error) {
+            throw error;
         });
 
         navigator.geolocation.watchPosition(function(position) {
