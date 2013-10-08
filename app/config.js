@@ -1,25 +1,7 @@
+var config = require('../config/environment.json');
+
 module.exports = function(app) {
 
-    app.settings = {
-        
-        overlay: {
-            zoom: 16
-        },
-        
-        websocket: {
-            url: generateWebSocketUrl()
-        }
-
-    };
+    app.settings = config;
 
 };
-
-function generateWebSocketUrl() {
-    var url = 'ws://';
-
-    url += location.hostname;
-    url += ':';
-    url += location.port;
-
-    return url;
-}

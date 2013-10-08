@@ -1,6 +1,8 @@
+var url = require('url');
+
 module.exports = function(app) {
 
-    var wsocket = new WebSocket(app.settings.websocket.url);
+    var wsocket = createWebSocket(app);
 
     wsocket.addEventListener('open', function() {
         app.emit('websocket:open');
@@ -22,3 +24,17 @@ module.exports = function(app) {
     }
 
 };
+
+function createWebSocket(app) {
+    var url = formatWebSocketUrl(app);
+
+    return new WebSocket(url);
+}
+
+function formatWebSocketUrl(app) {
+    return url.format({
+        protocol: 'ws',
+        hostname: location.hostname,
+        port: app.settings.websocket.port || location.port
+    });
+}
