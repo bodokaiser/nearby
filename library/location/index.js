@@ -9,66 +9,53 @@ module.exports = function(app) {
 
         var location = new Location();
 
-        wssocket.addListener('message', function(incoming, outgoing) {
-            var buffer = [];
+        wssocket.addListener('message', updateAndBroadcast);
+        wssocket.addListener('close', removeAndBroadcast);
+        wssocket.addListener('end', removeAndBroadcast);
 
-            incoming.on('readable', function() {
-                buffer.push(incoming.read());
-            });
-
-            incoming.on('end', function() {
-                var message = Buffer.concat(buffer).toString();
-
-                location.geometry = JSON.parse(message);
-
-                location.save(function(err, location) {
+        function updateAndBroadcast(incoming) {
+            bufferIncoming(incoming, function(buffer) {
+                var message = JSON.parse(buffer.toString());
+                
+                location.updateGeometryAndFindAll(message, function(err, locations) {
                     if (err) return;
 
-                    Location.find(function(err, locations) {
-                        if (err) return;
+                    var message = locationsToMessage(locations);
 
-                        var message = locations.map(function(location) {
-                            return location.geometry;
-                        });
-
-                        wsserver.broadcast(JSON.stringify(message));
-                    });
+                    wsserver.broadcast(message);
                 });
             });
-        });
+        }
 
-        wssocket.addListener('close', function() {
-            location.remove(function(err) {
+        function removeAndBroadcast() {
+            location.removeAndFindAll(function(err, locations) {
                 if (err) return;
 
-                Location.find(function(err, locations) {
-                    if (err) return;
+                var message = locationsToMessage(locations);
 
-                    var message = locations.map(function(location) {
-                        return location.geometry;
-                    });
-
-                    wsserver.broadcast(JSON.stringify(message));
-                });
+                wsserver.broadcast(message);
             });
-        });
-
-        wssocket.addListener('end', function() {
-            location.remove(function(err) {
-                if (err) return;
-
-                Location.find(function(err, locations) {
-                    if (err) return;
-
-                    var message = locations.map(function(location) {
-                        return location.geometry;
-                    });
-
-                    wsserver.broadcast(JSON.stringify(message));
-                });
-            });
-        });
+        }
 
     }).listen(app.server);
 
 };
+
+function bufferIncoming(incoming, callback) {
+    var buffer = [];
+
+    incoming.addListener('readable', function() {
+        buffer.push(incoming.read());
+    });
+    incoming.addListener('end', function() {
+        callback(Buffer.concat(buffer));
+    });
+}
+
+function locationsToMessage(locations) {
+    var geometries = locations.map(function(location) {
+        return location.geometry;
+    });
+
+    return JSON.stringify(geometries);
+}
