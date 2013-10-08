@@ -1,4 +1,3 @@
-var util    = require('util');
 var http    = require('http');
 var express = require('express');
 
@@ -14,8 +13,6 @@ require('./models')(app);
 
 require('./location')(app);
 
-app.server.listen(app.settings.port, function() {
-    console.log(util.format('listening on %d\n', app.settings.port));
-});
+app.server.listen(app.settings.port);
 
 module.exports = app;
