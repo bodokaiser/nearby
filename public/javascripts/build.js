@@ -161,7 +161,7 @@ module.exports={
     },
 
     "websocket": {
-    
+        "port": 443   
     }
 
 }

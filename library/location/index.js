@@ -1,3 +1,4 @@
+var http      = require('http');
 var mongoose  = require('mongoose');
 var websocket = require('websocket-x');
 
@@ -37,9 +38,16 @@ module.exports = function(app) {
             });
         }
 
-    }).listen(app.server);
+    }).listen(createHttpServer(app));
 
 };
+
+function createHttpServer(app) {
+    if (!app.settings.websocket.port) 
+        return app.server;
+
+    return http.createServer().listen(app.settings.websocket.port);
+}
 
 function bufferIncoming(incoming, callback) {
     var buffer = [];
