@@ -16,7 +16,7 @@ module.exports = function(app) {
 };
 
 function generateWebSocketUrl() {
-    var url = 'wss://';
+    var url = 'ws://';
 
     url += location.hostname;
     url += ':';

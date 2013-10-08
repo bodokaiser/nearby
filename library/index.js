@@ -1,12 +1,12 @@
 var util    = require('util');
-var https   = require('https');
+var http    = require('http');
 var express = require('express');
 
 var app = express();
 
-require('./config')(app);
+app.server = http.createServer(app);
 
-app.server = https.createServer(app.settings.cert, app);
+require('./config')(app);
 
 require('./static')(app);
 
