@@ -161,7 +161,8 @@ module.exports={
     },
 
     "websocket": {
-        "port": 443   
+        "port": 443,
+        "timeout": 300000
     }
 
 }

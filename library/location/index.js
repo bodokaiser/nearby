@@ -38,7 +38,7 @@ module.exports = function(app) {
             });
         }
 
-    }).listen(createHttpServer(app));
+    }, app.settings.websocket).listen(createHttpServer(app));
 
 };
 
