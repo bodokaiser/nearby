@@ -29,6 +29,8 @@ require('./overlay')(app);
 
 require('./websocket')(app);
 
+console.log('application booted');
+
 },{"./config":1,"./element":2,"./location":4,"./overlay":5,"./websocket":6,"events":10}],4:[function(require,module,exports){
 module.exports = function(app) {
  
@@ -145,7 +147,7 @@ module.exports={
     "name": "nearby",
 
     "static": {
-        "path": "/public"
+        "path": "public"
     },
 
     "mongoose": {
@@ -166,7 +168,10 @@ module.exports={
     },
 
     "browserify": {
-        "entries": ["app/index.js"]
+        "output": "public/javascripts/build.js",
+        "entries": [
+            "app/index.js"
+        ]
     }
 
 }
