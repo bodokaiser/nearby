@@ -2,14 +2,8 @@ var browserify = require('browserify');
 
 module.exports = function(app) {
 
-    var builder = browserify();
-
-    app.configure(function() {
-        builder.add(entryFile(app));
-    });
-
     app.configure('production', function() {
-
+        var builder = createBuilder(app);
     });
 
     app.configure('development', function() {
@@ -18,8 +12,11 @@ module.exports = function(app) {
 
 };
 
-function entryFile(app) {
+function createBuilder(app) {
     var options = app.settings.browserify;
 
-    return __dirname + '/../../' + options.entry;
+    var prefix = __dirname + '/../../';
+    options.entries.forEach(function(entry, index) {
+        options.entries[index] = prefix + entry;
+    });
 }
