@@ -163,6 +163,10 @@ module.exports={
     "websocket": {
         "port": 443,
         "timeout": 300000
+    },
+
+    "browserify": {
+        "entry": "app/index.js"    
     }
 
 }
