@@ -166,7 +166,7 @@ module.exports={
     },
 
     "browserify": {
-        "entry": "app/index.js"    
+        "entries": ["app/index.js"]
     }
 
 }
