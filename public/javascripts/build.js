@@ -29,24 +29,29 @@ require('./overlay')(app);
 
 require('./websocket')(app);
 
-console.log('application booted!!');
+console.info('application booted');
+
+app.addListener('connected', function() {
+    console.info('application connected');
+});
+
+app.addListener('disconnected', function() {
+    console.info('application disconnected');
+});
 
 },{"./config":1,"./element":2,"./location":4,"./overlay":5,"./websocket":6,"events":10}],4:[function(require,module,exports){
 module.exports = function(app) {
  
-    app.addListener('websocket:open', function() {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var geometry = positionToGeometry(position);
-
-            app.emit('location:current', geometry);
-        });
-
-        navigator.geolocation.watchPosition(function(position) {
-            var geometry = positionToGeometry(position);
-
-            app.emit('location:update', geometry);
-        });
+    app.addListener('connected', function() {
+        navigator.geolocation.getCurrentPosition(handlePosition);
+        navigator.geolocation.watchPosition(handlePosition);
     });
+
+    function handlePosition(position) {
+        var geometry = positionToGeometry(position);
+
+        app.emit('location', geometry);
+    }
 
 };
 
@@ -64,7 +69,7 @@ module.exports = function(app) {
 
     var map = new google.maps.Map(app.$element, app.settings.overlay.map);
 
-    app.addListener('location:current', function(geometry) {
+    app.addListener('location', function(geometry) {
         var latLng = geometryToLatLng(geometry);
 
         map.setCenter(latLng);
@@ -72,7 +77,7 @@ module.exports = function(app) {
 
     var markers = [];
 
-    app.addListener('websocket:update', function(geometries) {
+    app.addListener('message', function(geometries) {
         markers.forEach(function(marker) {
             marker.setMap(null);
         });
@@ -107,23 +112,24 @@ module.exports = function(app) {
     var wsocket = createWebSocket(app);
 
     wsocket.addEventListener('open', function() {
-        app.emit('websocket:open');
+        app.emit('connected');
+    });
+
+    wsocket.addEventListener('close', function() {
+        app.emit('disconnected');
     });
 
     wsocket.addEventListener('message', function(e) {
         var message = JSON.parse(e.data);
 
-        app.emit('websocket:update', message);
+        app.emit('message', message);
     });
 
-    app.addListener('location:current', pushGeometryToSocket);
-    app.addListener('location:update', pushGeometryToSocket);
-
-    function pushGeometryToSocket(geometry) {
+    app.addListener('location', function(geometry) {
         var message = JSON.stringify(geometry);
 
         wsocket.send(message);
-    }
+    });
 
 };
 
@@ -142,7 +148,7 @@ function formatWebSocketUrl(app) {
 }
 
 },{"url":12}],7:[function(require,module,exports){
-module.exports=module.exports={
+module.exports={
 
     "name": "nearby",
 

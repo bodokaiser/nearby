@@ -5,23 +5,24 @@ module.exports = function(app) {
     var wsocket = createWebSocket(app);
 
     wsocket.addEventListener('open', function() {
-        app.emit('websocket:open');
+        app.emit('connected');
+    });
+
+    wsocket.addEventListener('close', function() {
+        app.emit('disconnected');
     });
 
     wsocket.addEventListener('message', function(e) {
         var message = JSON.parse(e.data);
 
-        app.emit('websocket:update', message);
+        app.emit('message', message);
     });
 
-    app.addListener('location:current', pushGeometryToSocket);
-    app.addListener('location:update', pushGeometryToSocket);
-
-    function pushGeometryToSocket(geometry) {
+    app.addListener('location', function(geometry) {
         var message = JSON.stringify(geometry);
 
         wsocket.send(message);
-    }
+    });
 
 };
 

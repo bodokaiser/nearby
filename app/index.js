@@ -12,4 +12,12 @@ require('./overlay')(app);
 
 require('./websocket')(app);
 
-console.log('application booted!!');
+console.info('application booted');
+
+app.addListener('connected', function() {
+    console.info('application connected');
+});
+
+app.addListener('disconnected', function() {
+    console.info('application disconnected');
+});
