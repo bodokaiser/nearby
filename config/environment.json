@@ -3,7 +3,7 @@
     "name": "nearby",
 
     "static": {
-        "path": "/public"
+        "path": "public"
     },
 
     "mongoose": {
@@ -21,6 +21,13 @@
     "websocket": {
         "port": 443,
         "timeout": 300000
+    },
+
+    "browserify": {
+        "output": "public/javascripts/build.js",
+        "entries": [
+            "app/index.js"
+        ]
     }
 
 }

@@ -4,6 +4,10 @@
 
     "mongo": {
         "url": "mongodb://localhost/nearby"
+    },
+
+    "browserify": {
+        "debug": true    
     }
 
 }

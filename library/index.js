@@ -7,6 +7,8 @@ app.server = http.createServer(app);
 
 require('./config')(app);
 
+require('./builder')(app);
+
 require('./static')(app);
 
 require('./models')(app);

@@ -29,6 +29,8 @@ require('./overlay')(app);
 
 require('./websocket')(app);
 
+console.log('application booted!!');
+
 },{"./config":1,"./element":2,"./location":4,"./overlay":5,"./websocket":6,"events":10}],4:[function(require,module,exports){
 module.exports = function(app) {
  
@@ -140,12 +142,12 @@ function formatWebSocketUrl(app) {
 }
 
 },{"url":12}],7:[function(require,module,exports){
-module.exports={
+module.exports=module.exports={
 
     "name": "nearby",
 
     "static": {
-        "path": "/public"
+        "path": "public"
     },
 
     "mongoose": {
@@ -163,6 +165,13 @@ module.exports={
     "websocket": {
         "port": 443,
         "timeout": 300000
+    },
+
+    "browserify": {
+        "output": "public/javascripts/build.js",
+        "entries": [
+            "app/index.js"
+        ]
     }
 
 }
