@@ -11,3 +11,5 @@ require('./location')(app);
 require('./overlay')(app);
 
 require('./websocket')(app);
+
+console.log('application booted');

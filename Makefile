@@ -4,7 +4,7 @@ BROWSERIFY = node_modules/.bin/browserify
 BUILD_IN  = app/index.js
 BUILD_OUT = public/javascripts/build.js
 
-start: build
+start:
 	@node library/index
 
 test:

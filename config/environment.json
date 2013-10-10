@@ -3,7 +3,7 @@
     "name": "nearby",
 
     "static": {
-        "path": "/public"
+        "path": "public"
     },
 
     "mongoose": {
@@ -24,7 +24,10 @@
     },
 
     "browserify": {
-        "entries": ["app/index.js"]
+        "output": "public/javascripts/build.js",
+        "entries": [
+            "app/index.js"
+        ]
     }
 
 }
