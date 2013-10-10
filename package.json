@@ -2,7 +2,7 @@
 
     "name": "nearby",
     
-    "version": "0.0.5",
+    "version": "0.0.6",
     
     "author": "Bodo Kaiser <i@bodokaiser.io>",
     
@@ -23,8 +23,9 @@
     "dependencies": {
         "express": "3.4.0",
         "mongoose": "3.6.20",
+        "websocket-x": "0.0.6",
         "browserify": "2.34.0",
-        "websocket-x": "0.0.6"
+        "watchify": "0.2.0"
     },
     
     "devDependencies": {
