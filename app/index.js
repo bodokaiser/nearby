@@ -12,4 +12,4 @@ require('./overlay')(app);
 
 require('./websocket')(app);
 
-console.log('application booted');
+console.log('application booted!!');

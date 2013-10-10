@@ -29,7 +29,7 @@ require('./overlay')(app);
 
 require('./websocket')(app);
 
-console.log('application booted');
+console.log('application booted!!');
 
 },{"./config":1,"./element":2,"./location":4,"./overlay":5,"./websocket":6,"events":10}],4:[function(require,module,exports){
 module.exports = function(app) {
@@ -142,7 +142,7 @@ function formatWebSocketUrl(app) {
 }
 
 },{"url":12}],7:[function(require,module,exports){
-module.exports={
+module.exports=module.exports={
 
     "name": "nearby",
 
