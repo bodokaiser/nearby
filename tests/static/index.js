@@ -11,15 +11,9 @@ describe('static', function() {
             .expect(200, done);
     });
 
-    it('should respond build/build.js', function(done) {
+    it('should respond javascripts/build.js', function(done) {
         supertest(app)
-            .get('/build/build.js')
-            .expect(200, done);
-    });
-
-    it('should respond build/build.css', function(done) {
-        supertest(app)
-            .get('/build/build.css')
+            .get('/javascripts/build.js')
             .expect(200, done);
     });
 
