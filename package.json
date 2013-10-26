@@ -23,7 +23,7 @@
     "dependencies": {
         "express": "3.4.0",
         "mongoose": "3.6.20",
-        "websocket-x": "0.0.6",
+        "websocket-x": "0.0.7",
         "browserify": "2.34.0",
         "watchify": "0.2.0"
     },
