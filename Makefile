@@ -1,14 +1,22 @@
 MOCHA      = node_modules/.bin/mocha
 BROWSERIFY = node_modules/.bin/browserify
 
-BUILD_IN  = app/index.js
-BUILD_OUT = public/javascripts/build.js
+MOCHA_FLAGS = \
+		--reporter spec
 
+BROWSERIFY_FLAGS = \
+		--entry app/index.js \
+		--outfile public/javascripts/build.js
 start:
-	@node library/index
+	@node lib
 
-test:
-	$(MOCHA) --reporter spec tests/static
+test: test-lib
+
+test-lib:
+	$(MOCHA) $(MOCHA_FLAGS) \
+		test/lib/static
 
 build:
-	$(BROWSERIFY) --entry $(BUILD_IN) --outfile $(BUILD_OUT)
+	$(BROWSERIFY) $(BROWSERIFY_FLAGS)
+
+.PHONY: test

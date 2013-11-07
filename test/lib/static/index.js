@@ -1,7 +1,7 @@
 var should    = require('should');
 var supertest = require('supertest');
 
-var app = require('../../library');
+var app       = require('../../../lib');
 
 describe('static', function() {
 

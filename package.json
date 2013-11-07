@@ -8,7 +8,7 @@
     
     "subdomain": "nearby",
 
-    "main": "library/index.js",
+    "main": "lib/index.js",
 
     "scripts": {
         "test": "make tests",
