@@ -19,6 +19,6 @@ Install dependencies with [npm(1)](http://npmjs.org):
 
     $ cd nearby && npm install
 
-And execute `library/index.js` with [node(1)](http://nodejs.org)
+And call `lib/index.js` with [node(1)](http://nodejs.org) or:
 
-    $ node library/index.js
+    $ npm start
