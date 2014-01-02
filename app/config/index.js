@@ -1,4 +1,4 @@
-var config = require('../config/environment.json');
+var config = require('../../etc/environment.json');
 
 module.exports = function(app) {
 
