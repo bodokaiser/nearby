@@ -1,11 +1,11 @@
 {
 
     "name": "nearby",
-    
-    "version": "0.0.8",
-    
+
+    "version": "0.0.9",
+
     "author": "Bodo Kaiser <i@bodokaiser.io>",
-    
+
     "subdomain": "nearby",
 
     "main": "lib/index.js",
@@ -21,23 +21,23 @@
     },
 
     "dependencies": {
-        "express": "3.4.4",
-        "mongoose": "3.8.0",
-        "websocket-x": "0.0.8",
-        "browserify": "2.35.1",
-        "watchify": "0.3.0"
+        "st": "0.2.*",
+        "express": "3.4.*",
+        "mongoose": "3.8.*",
+        "websocket-x": "0.0.*",
+        "browserify": "2.35.*"
     },
-    
+
     "devDependencies": {
         "mocha": "1.14.0",
         "should": "2.0.2",
         "supertest": "0.8.1"
     },
-    
+
     "repository": {
         "url": "git://github.com/bodokaiser/nearby.git"
     },
-    
+
     "bugs": {
         "url": "https://github.com/bodokaiser/nearby/issues"
     }
