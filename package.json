@@ -26,6 +26,7 @@
         "lodash": "2.4.*",
         "express": "3.4.*",
         "mongoose": "3.8.*",
+        "packpath": "0.1.*",
         "websocket-x": "0.0.*",
         "browserify": "2.35.*"
     },
