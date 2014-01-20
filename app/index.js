@@ -1,23 +1,15 @@
-var events = require('events');
+var page = require('page');
 
-var app = new events.EventEmitter();
+var app = page;
 
-require('./config')(app);
+require('./query')(app);
 
-require('./element')(app);
+require('./events')(app);
 
-require('./location')(app);
+require('./world')(app);
 
-require('./overlay')(app);
+require('./socket')(app);
 
-require('./websocket')(app);
+require('./routes')(app);
 
-console.info('application booted');
-
-app.addListener('connected', function() {
-    console.info('application connected');
-});
-
-app.addListener('disconnected', function() {
-    console.info('application disconnected');
-});
+app.start();
