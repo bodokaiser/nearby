@@ -22,6 +22,7 @@
 
     "dependencies": {
         "st": "0.2.*",
+        "lodash": "2.4.*",
         "express": "3.4.*",
         "mongoose": "3.8.*",
         "websocket-x": "0.0.*",

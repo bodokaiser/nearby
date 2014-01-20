@@ -1,6 +1,6 @@
 module.exports = function(app) {
 
-    var map = new google.maps.Map(app.$element, app.settings.overlay.map);
+    var map = createMap(app);
 
     app.addListener('location', function(geometry) {
         var latLng = geometryToLatLng(geometry);
@@ -29,6 +29,12 @@ module.exports = function(app) {
     });
 
 };
+
+function createMap(app) {
+    return new google.maps.Map(app.$element, {
+        zoom: 16
+    });
+}
 
 function geometryToLatLng(geometry) {
     var latitude = geometry.coordinates[0];

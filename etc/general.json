@@ -1,0 +1,23 @@
+{
+
+    "name": "nearby",
+
+    "static": {
+        "path": "/srv",
+        "index": "index.html",
+        "passthrough": true
+    },
+
+    "builder": {
+        "output": "/srv/javascripts/build.js",
+        "entries": [
+            "/app/index.js"
+        ]
+    },
+
+    "websocket": {
+        "port": 443,
+        "timeout": 300000
+    }
+
+}

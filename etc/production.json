@@ -2,7 +2,7 @@
 
     "port": 80,
 
-    "mongo": {
+    "storage": {
         "url": "mongodb://localhost/nearby"
     }
 
