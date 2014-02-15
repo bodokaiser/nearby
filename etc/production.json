@@ -2,10 +2,6 @@
 
   "server": {
     "port": 4000
-  },
-
-	"storage": {
-		"url": "mongodb://localhost/nearby"
-	}
+  }
 
 }

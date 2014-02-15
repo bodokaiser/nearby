@@ -8,10 +8,6 @@
     "builder": {
       "debug": true
     }
-	},
-
-	"storage": {
-		"url": "mongodb://localhost/nearby"
 	}
 
 }
