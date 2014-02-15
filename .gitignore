@@ -1,53 +1,24 @@
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# Logs and databases #
-######################
+# logs
 *.log
-*.sql
-*.sqlite
 
-# OS generated files #
-######################
+# builds
+!srv/javascripts
+!srv/stylesheets
+srv/javascripts/build.js
+srv/stylesheets/build.css
+
+# temporary
+*.swp
+
+# filesystem
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-Icon?
 ehthumbs.db
 Thumbs.db
 *~
 
-# JavaScript packages #
-###################
+# packages
 node_modules
-components
-
-# Production configuration #
-############################
-#config/production.json
-
-# Ide generated files #
-#######################
-*.swp
-.c9revisions
