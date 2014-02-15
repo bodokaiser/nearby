@@ -15,6 +15,8 @@ module.exports = function(app) {
 				marker.setMap(null);
 			});
 			lodash.forEach(geometries, function(geometry) {
+        if (!lodash.isPlainObject(geometry)) return;
+
 				markers.push(createMarker(context, geometry));
 			});
 		});
