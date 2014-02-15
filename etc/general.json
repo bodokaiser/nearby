@@ -4,11 +4,15 @@
 
 	"static": {
 		"path": "/srv",
-    "index": "index.html",
+    "index": false,
 		"passthrough": true
 	},
 
 	"engine": {
+    "views": {
+      "path": "/views",
+      "engine": "jade"
+    },
     "builder": {
       "entry": "/app/index.js",
       "output": "/srv/javascripts/build.js",
