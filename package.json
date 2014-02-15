@@ -28,6 +28,8 @@
     "mongoose": "3.8.*",
     "packpath": "0.1.*",
     "websocket-x": "0.0.*",
+    "shortify": "0.0.2",
+    "uglifyify": "1.2.2",
     "browserify": "2.35.*"
   },
 
