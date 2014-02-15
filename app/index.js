@@ -2,11 +2,9 @@ var page = require('page');
 
 var app = page;
 
-require('./query')(app);
-
 require('./events')(app);
 
-require('./world')(app);
+require('./layout')(app);
 
 require('./socket')(app);
 

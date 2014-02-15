@@ -8,4 +8,6 @@ module.exports = function(app) {
 		next();
 	});
 
+  require('./map')(app);
+
 };
