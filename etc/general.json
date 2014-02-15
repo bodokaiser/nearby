@@ -4,20 +4,18 @@
 
 	"static": {
 		"path": "/srv",
-		"index": "index.html",
+    "index": "index.html",
 		"passthrough": true
 	},
 
-	"builder": {
-		"output": "/srv/javascripts/build.js",
-		"entries": [
-			"/app/index.js"
-		]
-	},
-
-	"websocket": {
-		"port": 443,
-		"timeout": 300000
+	"engine": {
+    "builder": {
+      "entry": "/app/index.js",
+      "output": "/srv/javascripts/build.js",
+      "extensions": [
+        ".js", ".json"
+      ]
+    }
 	}
 
 }

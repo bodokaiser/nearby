@@ -24,8 +24,7 @@ module.exports = function(app) {
 function createWebSocket(app) {
 	var resource = url.format({
 		protocol: 'ws',
-		hostname: location.hostname,
-		port: 443
+		host: location.host
 	});
 
 	return new WebSocket(resource);
