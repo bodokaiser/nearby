@@ -17,7 +17,7 @@ And call `lib/index.js` with [node(1)](http://nodejs.org) or:
 
     $ npm start
 
-# License
+## License
 
 Copyright © 2014 Bodo Kaiser <i@bodokaiser.io>
 
