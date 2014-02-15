@@ -1,4 +1,3 @@
-var should    = require('should');
 var supertest = require('supertest');
 
 var app = require('../lib');
