@@ -1,48 +1,48 @@
 {
 
-    "name": "nearby",
+  "name": "nearby",
 
-    "version": "0.0.10",
+  "version": "0.0.10",
 
-    "author": "Bodo Kaiser <i@bodokaiser.io>",
+  "author": "Bodo Kaiser <i@bodokaiser.io>",
 
-    "subdomain": "nearby",
+  "subdomain": "nearby",
 
-    "main": "lib/index.js",
+  "main": "lib/index.js",
 
-    "scripts": {
-        "test": "make tests",
-        "start": "make start"
-    },
+  "scripts": {
+    "test": "make tests",
+    "start": "make start"
+  },
 
-    "engines": {
-        "node": "0.10.*",
-        "npm": "1.3.*"
-    },
+  "engines": {
+    "node": "0.10.*",
+    "npm": "1.3.*"
+  },
 
-    "dependencies": {
-        "st": "0.2.*",
-        "page": "1.3.*",
-        "lodash": "2.4.*",
-        "express": "3.4.*",
-        "mongoose": "3.8.*",
-        "packpath": "0.1.*",
-        "websocket-x": "0.0.*",
-        "browserify": "2.35.*"
-    },
+  "dependencies": {
+    "st": "0.2.*",
+    "page": "1.3.*",
+    "lodash": "2.4.*",
+    "express": "3.4.*",
+    "mongoose": "3.8.*",
+    "packpath": "0.1.*",
+    "websocket-x": "0.0.*",
+    "browserify": "2.35.*"
+  },
 
-    "devDependencies": {
-        "mocha": "1.14.0",
-        "should": "2.0.2",
-        "supertest": "0.8.1"
-    },
+  "devDependencies": {
+    "mocha": "1.14.0",
+    "should": "2.0.2",
+    "supertest": "0.8.1"
+  },
 
-    "repository": {
-        "url": "git://github.com/bodokaiser/nearby.git"
-    },
+  "repository": {
+    "url": "git://github.com/bodokaiser/nearby.git"
+  },
 
-    "bugs": {
-        "url": "https://github.com/bodokaiser/nearby/issues"
-    }
+  "bugs": {
+    "url": "https://github.com/bodokaiser/nearby/issues"
+  }
 
 }

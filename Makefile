@@ -1,22 +1,12 @@
-MOCHA      = node_modules/.bin/mocha
-BROWSERIFY = node_modules/.bin/browserify
+MOCHA = node_modules/.bin/mocha
 
 MOCHA_FLAGS = \
 		--reporter spec
 
-BROWSERIFY_FLAGS = \
-		--entry app/index.js \
-		--outfile public/javascripts/build.js
-start:
+boot:
 	@node lib
 
-test: test-lib
-
-test-lib:
-	$(MOCHA) $(MOCHA_FLAGS) \
-		test/lib/static
-
-build:
-	$(BROWSERIFY) $(BROWSERIFY_FLAGS)
+test:
+	$(MOCHA) $(MOCHA_FLAGS) test
 
 .PHONY: test

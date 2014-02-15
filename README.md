@@ -1,13 +1,7 @@
-# Readme
+# nearby
 
 **nearby** is a simple single-page app which uses HTML5 geolocation to track
 users and render them as markers on a google maps front-end.
-
-## Dependencies
-
-* **node** - `0.10.x`
-* **mongodb** - `2.4.x`
-* **googlemaps** - `3.10.x`
 
 ## Installation
 

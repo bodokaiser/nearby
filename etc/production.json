@@ -1,9 +1,9 @@
 {
 
-    "port": 80,
+	"port": 80,
 
-    "storage": {
-        "url": "mongodb://localhost/nearby"
-    }
+	"storage": {
+		"url": "mongodb://localhost/nearby"
+	}
 
 }

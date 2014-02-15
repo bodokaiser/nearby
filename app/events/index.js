@@ -2,14 +2,14 @@ var events = require('events');
 
 module.exports = function(app) {
 
-    app('*', function(context, next) {
-        context.events = createEmitter();
+	app('*', function(context, next) {
+		context.events = createEmitter();
 
-        next();
-    });
+		next();
+	});
 
 };
 
 function createEmitter() {
-    return new events.EventEmitter();
+	return new events.EventEmitter();
 }
