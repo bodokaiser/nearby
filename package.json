@@ -11,8 +11,8 @@
   "main": "lib/index.js",
 
   "scripts": {
-    "test": "make tests",
-    "start": "make start"
+    "test": "make test",
+    "start": "make boot"
   },
 
   "engines": {
@@ -31,7 +31,8 @@
     "websocket-x": "0.0.*",
     "shortify": "0.0.2",
     "uglifyify": "1.2.2",
-    "browserify": "2.35.*"
+    "browserify": "2.35.*",
+    "supervisor": "0.5.6"
   },
 
   "devDependencies": {
