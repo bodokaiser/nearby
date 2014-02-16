@@ -12,6 +12,6 @@ boot:
 	$(SUPERVISOR) $(SUPERVISOR_FLAGS) lib
 
 test:
-	$(MOCHA) $(MOCHA_FLAGS) test
+	$(MOCHA) $(MOCHA_FLAGS) usr/tests
 
 .PHONY: test

@@ -1,6 +1,6 @@
 var supertest = require('supertest');
 
-var app = require('../lib');
+var app = require('../../lib');
 
 describe('static', function() {
 

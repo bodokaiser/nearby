@@ -10,7 +10,7 @@
 
 	"engine": {
     "views": {
-      "path": "/views",
+      "path": "/usr/views",
       "engine": "jade"
     },
     "builder": {
