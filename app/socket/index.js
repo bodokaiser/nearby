@@ -21,11 +21,12 @@ module.exports = function(app) {
 
 };
 
-function createWebSocket(app) {
-	var resource = url.format({
+function createWebSocket() {
+	var object = {
 		protocol: 'ws',
-		host: location.host
-	});
+    hostname: location.host,
+    port: location.port || 443
+	};
 
-	return new WebSocket(resource);
+	return new WebSocket(url.format(object));
 }
