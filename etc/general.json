@@ -2,11 +2,7 @@
 
 	"name": "nearby",
 
-	"static": {
-		"path": "/srv",
-    "index": false,
-		"passthrough": true
-	},
+	"static": "/srv",
 
 	"engine": {
     "views": {
