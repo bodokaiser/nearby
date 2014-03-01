@@ -24,7 +24,7 @@ module.exports = function(app) {
 function createWebSocket() {
 	var object = {
 		protocol: 'ws',
-    hostname: location.host,
+    hostname: location.hostname,
     port: location.port || 443
 	};
 
