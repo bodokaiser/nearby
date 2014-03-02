@@ -13,7 +13,7 @@ module.exports = function(app) {
       } else {
         var agent = app.agents.find(location);
 
-        if (!agent.equalsGeometry(location.geometry)) {
+        if (!agent.sameGeo(location.geometry)) {
           agent.set('geometry', location.geometry);
         }
       }

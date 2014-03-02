@@ -2,18 +2,18 @@ var url = require('url');
 
 module.exports = function(app) {
 
-  app.socket = createWebSocket();
+  var wsocket = createWebSocket();
 
-  app.socket.onopen = function(e) {
+  wsocket.onopen = function(e) {
     app.emit('connect');
   };
 
-  app.socket.onmessage = function(e) {
+  wsocket.onmessage = function(e) {
     app.emit('message', JSON.parse(e.data));
   };
 
   app.agent.on('change', function() {
-	  app.socket.send(JSON.stringify(app.agent));
+	  wsocket.send(JSON.stringify(app.agent));
   });
 
 };

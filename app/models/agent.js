@@ -12,14 +12,16 @@ function Agent(source) {
     this.set('uuid', uuid.v4());
   }
 
-  this.marker = createMarker(this);
+  this.marker = new google.maps.Marker({
+    position: this.toLatLng()
+  });
 
   listenToChangeEvent(this);
 }
 
 util.inherits(Agent, exempel.Model);
 
-Agent.prototype.equalsGeometry = function(geometry) {
+Agent.prototype.sameGeo = function(geometry) {
   return lodash.isEqual(this.get('geometry'), geometry);
 };
 
@@ -30,15 +32,6 @@ Agent.prototype.toLatLng = function() {
 };
 
 module.exports = Agent;
-
-function createMarker(model) {
-  var options = {
-    draggable: true,
-    position: model.toLatLng()
-  };
-
-  return new google.maps.Marker(options);
-}
 
 function listenToChangeEvent(model) {
   model.on('change:geometry', function(geometry) {
