@@ -2,7 +2,7 @@ var lodash = require('lodash');
 
 module.exports = function(app) {
 
-	var markers = [];
+	var agents = [];
 
 	app('*', function(context, next) {
 		context.world = createWorld(context);
@@ -10,15 +10,29 @@ module.exports = function(app) {
 		context.events.on('location', function(geometry) {
 			context.world.setCenter(geometryToLatLng(geometry));
 		});
-		context.events.on('message', function(geometries) {
-			lodash.forEach(markers, function(marker) {
-				marker.setMap(null);
-			});
-			lodash.forEach(geometries, function(geometry) {
-        if (!lodash.isPlainObject(geometry)) return;
 
-				markers.push(createMarker(context, geometry));
-			});
+		context.events.on('message', function(locations) {
+      locations.forEach(function(location) {
+        var agent = agents.filter(function(agent) {
+          return location.id === agent.id;
+        }).pop();
+
+        if (!agent) {
+          location.marker = createMarker(context, location);
+
+          agents.push(location);
+        } else {
+          if (location.coordinates === null) {
+            agent.marker.setMap(null);
+            agents.splice(agents.indexOf(agent), 1);
+
+            return;
+          }
+          if (!lodash.isEqual(agent.coordinates, location.coordinates)) {
+            agent.marker.setPosition(geometryToLatLng(location));
+          }
+        }
+      });
 		});
 
 		next();

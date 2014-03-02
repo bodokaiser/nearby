@@ -1,4 +1,8 @@
+var uuid = require('uuid');
+
 module.exports = function(app) {
+
+  app.id = uuid.v4();
 
 	app('/', function(context, next) {
 		context.events.on('connected', function() {
@@ -7,7 +11,11 @@ module.exports = function(app) {
 		});
 
 		function updateSocket(position) {
-			context.events.emit('location', positionToGeometry(position));
+      var location = positionToGeometry(position);
+
+      location.id = app.id;
+
+			context.events.emit('location', location);
 		}
 	});
 
