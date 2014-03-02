@@ -2,22 +2,19 @@ var url = require('url');
 
 module.exports = function(app) {
 
-	app('*', function(context, next) {
-		context.wsocket = createWebSocket();
+  app.socket = createWebSocket();
 
-		context.wsocket.addEventListener('open', function() {
-			context.events.emit('connected');
-		});
-		context.wsocket.addEventListener('message', function(e) {
-			context.events.emit('message', JSON.parse(e.data));
-		});
+  app.socket.onopen = function(e) {
+    app.emit('connect');
+  };
 
-		context.events.on('location', function(geometry) {
-			context.wsocket.send(JSON.stringify(geometry));
-		});
+  app.socket.onmessage = function(e) {
+    app.emit('message', JSON.parse(e.data));
+  };
 
-		next();
-	});
+  app.agent.on('change', function() {
+	  app.socket.send(JSON.stringify(app.agent));
+  });
 
 };
 

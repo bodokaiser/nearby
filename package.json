@@ -28,6 +28,7 @@
     "lodash": "2.4.1",
     "confus": "0.0.1",
     "express": "3.4.8",
+    "exempel": "0.0.3",
     "shortify": "0.0.2",
     "uglifyify": "1.2.3",
     "supervisor": "0.5.7",

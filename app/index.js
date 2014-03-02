@@ -1,13 +1,15 @@
-var page = require('page');
+var events = require('events');
 
-var app = page;
+var app = createEmitter();
 
-require('./events')(app);
-
-require('./layout')(app);
+require('./models')(app);
 
 require('./socket')(app);
 
-require('./routes')(app);
+require('./element')(app);
 
-app.start();
+require('./location')(app);
+
+function createEmitter() {
+  return new events.EventEmitter();
+}
