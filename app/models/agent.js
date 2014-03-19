@@ -31,7 +31,7 @@ Agent.prototype.sameGeo = function(geometry) {
 Agent.prototype.toLatLng = function() {
   // this is a helper to convert agent to google maps
   // compatible position representation
-	var position = new Position(this.get('geometry'));
+  var position = new Position(this.get('geometry'));
 
   return position.toGoogleLatLng();
 };

@@ -1,10 +1,10 @@
 {
 
-	"name": "nearby",
+  "name": "nearby",
 
-	"static": "/srv",
+  "static": "/srv",
 
-	"engine": {
+  "engine": {
     "views": {
       "path": "/usr/views",
       "engine": "jade"
@@ -16,6 +16,6 @@
         ".js", ".json"
       ]
     }
-	}
+  }
 
 }

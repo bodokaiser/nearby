@@ -22,7 +22,7 @@ module.exports = function(app) {
 };
 
 function createMap(element) {
-	var options = { zoom: 16 };
+  var options = { zoom: 16 };
 
-	return new google.maps.Map(element, options);
+  return new google.maps.Map(element, options);
 }
