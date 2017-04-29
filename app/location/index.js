@@ -1,8 +1,8 @@
 var Position = require('../models/position');
 
-module.exports = function(app) {
+module.exports = app => {
 
-  app.once('connect', function() {
+  app.once('connect', () => {
     // start geolocation request on web socket connection background of this
     // is that all markers are rendered on websocket message even our own one
     navigator.geolocation.getCurrentPosition(update);

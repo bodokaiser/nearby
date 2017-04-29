@@ -1,21 +1,21 @@
 var element = document.querySelector('#map');
 
-module.exports = function(app) {
+module.exports = app => {
 
   var map = createMap(element);
 
   // centers map to our position when moving
-  app.on('position', function(position) {
+  app.on('position', position => {
     map.setCenter(position.toGoogleLatLng());
   });
 
   // renders marker on the map
-  app.agents.on('push', function(agent) {
+  app.agents.on('push', agent => {
     agent.marker.setMap(map);
   });
 
   // unrenders marker from map
-  app.agents.on('remove', function(agent) {
+  app.agents.on('remove', agent => {
     agent.marker.setMap(null);
   });
 

@@ -1,7 +1,7 @@
 var Agent  = require('./agent');
 var Agents = require('./agents');
 
-module.exports = function(app) {
+module.exports = app => {
 
   // this is our agent
   app.agent = new Agent();
@@ -10,8 +10,8 @@ module.exports = function(app) {
   app.agents = new Agents();
 
   // the server will broadcast an array of locations
-  app.on('message', function(locations) {
-    locations.forEach(function(location) {
+  app.on('message', locations => {
+    locations.forEach(location => {
       // add agent to our agent collection if not found else
       // update its geometry if this has changed since last time
       if (!app.agents.find(location) && location.geometry) {
@@ -26,7 +26,7 @@ module.exports = function(app) {
   });
 
   // update our agent when position changes
-  app.on('position', function(position) {
+  app.on('position', position => {
     app.agent.set('geometry', position.toJSON());
   });
 

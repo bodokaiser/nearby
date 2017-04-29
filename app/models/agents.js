@@ -14,9 +14,7 @@ util.inherits(Agents, exempel.Collection);
 
 Agents.prototype.find = function(location) {
   // finds agent by uuid
-  var found = lodash.find(this.models, function(model) {
-    return model.get('uuid') === location.uuid;
-  });
+  var found = lodash.find(this.models, model => model.get('uuid') === location.uuid);
 
   return found;
 };
