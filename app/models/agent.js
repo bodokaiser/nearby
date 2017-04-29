@@ -39,7 +39,7 @@ Agent.prototype.toLatLng = function() {
 module.exports = Agent;
 
 function listenToChangeEvent(model) {
-  model.on('change:geometry', function(geometry) {
+  model.on('change:geometry', geometry => {
     // when geometry was set to null by the server
     // this agent has been disconnected
     if (geometry === null) {
