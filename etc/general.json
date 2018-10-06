@@ -10,7 +10,7 @@
   "engine": {
     "views": {
       "path": "/usr/views",
-      "engine": "jade"
+      "engine": "pug"
     },
     "builder": {
       "entry": "/app/index.js",
